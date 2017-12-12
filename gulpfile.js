@@ -5,20 +5,27 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
+var bust = require('gulp-buster');
 
 gulp.task('sass', function() {
     return sass('resources/assets/sass/**/*.sass', {style: 'compressed'})
       .pipe(concat('main.css'))
       .pipe(rename({suffix: '.min'}))
-      .pipe(gulp.dest('public/css/'));
+      .pipe(gulp.dest('public/css/'))
+      .pipe(bust())
+      .pipe(gulp.dest('public/'));
 });
 
 gulp.task('build-js', function() {
     return gulp.src('resources/assets/js/*.js')    
       .pipe(concat('main.js'))
-      .pipe(rename({suffix: '.min'}))
-      .pipe(uglify())      
-      .pipe(gulp.dest('public/js'));
+      .pipe(rename({
+        suffix: '.min'        
+      }))
+      .pipe(uglify())
+      .pipe(gulp.dest('public/js'))
+      .pipe(bust())
+      .pipe(gulp.dest('public/'));
 });
 
 gulp.task('images', function() {

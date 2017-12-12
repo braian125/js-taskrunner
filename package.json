@@ -10,6 +10,7 @@
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-buster": "^1.1.0",
     "gulp-cache": "^1.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^4.0.0",
