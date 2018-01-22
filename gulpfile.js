@@ -16,6 +16,15 @@ gulp.task('sass', function() {
       .pipe(gulp.dest('public/'));
 });
 
+gulp.task('scss', function() {
+    return sass('resources/assets/scss/**/*.scss', {style: 'compressed'})
+      .pipe(concat('main.css'))
+      .pipe(rename({suffix: '.min'}))
+      .pipe(gulp.dest('public/css/'))
+      .pipe(bust())
+      .pipe(gulp.dest('public/'));
+});
+
 gulp.task('build-js', function() {
     return gulp.src('resources/assets/js/*.js')    
       .pipe(concat('main.js'))
@@ -37,7 +46,8 @@ gulp.task('images', function() {
 gulp.task('watch', function() {
   gulp.watch('resources/assets/js/**/*.js', ['build-js']);
   gulp.watch('resources/assets/sass/**/*.sass', ['sass']);
+  gulp.watch('resources/assets/scss/**/*.scss', ['scss']);
   gulp.watch('resources/assets/images/**/*', ['images']);
 });
 
-gulp.task('default', ['build-js','sass','images', 'watch']);
+gulp.task('default', ['build-js','sass','scss','images', 'watch']);
